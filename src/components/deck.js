@@ -17,7 +17,8 @@ export default class Deck extends Component {
         <TouchableOpacity style={styles.titleContainer}>
           <Text style={styles.title}>{deck.title}</Text>
           <Text style={styles.questContainer}>
-            {deck.questions.length} Card(s)
+          {deck.questions.length}{" "}
+            {deck.questions.length > 1 ? "Cards" : "Card"}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
 import { NavigationEvents } from "react-navigation";
+import { clearLocalNotification, setLocalNotification } from "./helpers";
 
 export default class Quiz extends Component {
   state = {
@@ -36,17 +37,30 @@ export default class Quiz extends Component {
   };
 
   handleCorrect = () => {
-    this.setState(state => ({
-      correctAnswerCount: state.correctAnswerCount + 1,
-      currentCardIndex: state.currentCardIndex + 1
-    }));
+    this.setState(state => {
+      if(state.currentCardIndex == state.deck.questions.length - 1) {
+        clearLocalNotification().then(setLocalNotification);
+      }
+      return {
+        correctAnswerCount: state.correctAnswerCount + 1,
+        currentCardIndex: state.currentCardIndex + 1,
+        showQuestion:"true"
+      };
+    });
   };
 
+
   handleIncorrect = () => {
-    this.setState(state => ({
-      wrongAnswerCount: state.wrongAnswerCount + 1,
-      currentCardIndex: state.currentCardIndex + 1
-    }));
+    this.setState(state => {
+      if(state.currentCardIndex == state.deck.questions.length - 1) {
+        clearLocalNotification().then(setLocalNotification);
+      }
+      return {
+        wrongAnswerCount: state.wrongAnswerCount + 1,
+        currentCardIndex: state.currentCardIndex + 1,
+        showQuestion:"true"
+      }
+    });
   };
 
   render() {
@@ -66,7 +80,7 @@ export default class Quiz extends Component {
       content = (
         <View>
           <Text style={styles.title}>
-            You answer to {correctAnswerCount} card(s) from total of{" "}
+            You answer correct to {correctAnswerCount} card(s) from total of{" "}
             {correctAnswerCount + wrongAnswerCount}.
           </Text>
           <TouchableOpacity
@@ -100,7 +114,7 @@ export default class Quiz extends Component {
             onPress={this.toggleQuestion}
           >
             <Text style={styles.toggle}>{`${
-              showQuestion ? "Answer" : "Question"
+              showQuestion ? "Show Answer" : "Show Question"
             }`}</Text>
           </TouchableOpacity>
           <View
@@ -164,7 +178,8 @@ const styles = StyleSheet.create({
   },
   questionAnswer: {
     fontSize: 22,
-    marginTop: -200,
+    width: 240,
+    alignSelf: "center",
     marginBottom: 40,
     fontWeight: 'bold',
     textAlign: "center"

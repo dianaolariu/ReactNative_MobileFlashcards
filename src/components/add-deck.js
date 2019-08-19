@@ -4,7 +4,8 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet
+  StyleSheet,
+  KeyboardAvoidingView
 } from "react-native";
 import { saveDeckTitle } from "./helpers";
 
@@ -13,6 +14,9 @@ export default class AddDeck extends Component {
 
   addDeck = () => {
     saveDeckTitle(this.state.title).then(deck => {
+      if(!this.state.title) { 
+        return alert("Add the Deck Name")
+   }
       this.setState({ title: "" });
       this.props.navigation.navigate("Deck", { deck });
     });

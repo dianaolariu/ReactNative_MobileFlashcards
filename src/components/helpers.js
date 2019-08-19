@@ -117,6 +117,7 @@ export function setLocalNotification() {
             Notifications.cancelAllScheduledNotificationsAsync();
 
             let tomorrow = new Date();
+            // tomorrow.setSeconds(tomorrow.getSeconds() + 3) // push notification after 3 seconds
             tomorrow.setDate(tomorrow.getDate() + 1);
             tomorrow.setHours(9);
             tomorrow.setMinutes(0);

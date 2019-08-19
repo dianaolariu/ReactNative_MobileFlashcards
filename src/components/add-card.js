@@ -27,6 +27,17 @@ export default class AddCard extends Component {
     });
   };
 
+  handleChangeAnswer = (value) => {
+    this.setState({
+      answer: value
+    })
+  }
+  handleChangeQuestion = (value) => {
+    this.setState({
+      question: value
+    })
+  }
+
   render() {
     const { question, answer } = this.state;
 
@@ -37,7 +48,8 @@ export default class AddCard extends Component {
           <TextInput
             value={question}
             placeholder={"Question"}
-            onChangeText={question => this.setState({ question })}
+            // onChangeText={question => this.setState({ question })}
+            onChangeText={this.handleChangeQuestion}
             multiline
           />
         </View>
@@ -45,7 +57,8 @@ export default class AddCard extends Component {
           <TextInput
             value={answer}
             placeholder={"Answer"}
-            onChangeText={answer => this.setState({ answer })}
+            // onChangeText={answer => this.setState({ answer })}
+            onChangeText={this.handleChangeAnswer}
             multiline
           />
         </View>

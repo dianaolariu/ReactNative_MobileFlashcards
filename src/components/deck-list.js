@@ -44,7 +44,8 @@ export default class Decks extends Component {
                     {this.state.decks[key].title}
                   </Text>
                   <Text style={styles.cardNumber}>
-                    {this.state.decks[key].questions.length} Card(s)
+                    {this.state.decks[key].questions.length} {" "} 
+                    {this.state.decks[key].questions.length > 1 ? "Cards" : "Card"}
                   </Text>
                 </TouchableOpacity>
               );
